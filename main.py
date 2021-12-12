@@ -47,6 +47,7 @@ if __name__ == "__main__":
 
     """Directories"""
     create_dir("files")
+    create_dir("files/train_data")
 
     """Loading Data"""
 
@@ -64,7 +65,7 @@ if __name__ == "__main__":
     batch_size = 3
     epochs = 20
     learning_rate = 1e-4
-    pre_trained = False
+    pre_trained = True
 
     
     """ Dataset and loader"""
@@ -75,12 +76,12 @@ if __name__ == "__main__":
     train_loader = DataLoader(dataset=train_data, batch_size=batch_size, shuffle=True, num_workers=2)
     valid_loader = DataLoader(dataset=valid_data, batch_size=batch_size, shuffle=False, num_workers=2)
 
-    encoders = ["resnet50", "resnet101", "resnext50_32x4d", "resnext101_32x8d", "DenseNet121", "DenseNet201"]
+    encoders = ["resnet50", "resnet101", "resnext50_32x4d", "resnext101_32x8d", "densenet121", "densenet201"]
     for encoder_name in encoders:
         device = torch.device('cuda')
         if pre_trained:
             model = Unet(encoder_name, encoder_weights="imagenet", classes=1, activation=None)
-            model_name = "Unet_" +"pre_trained"+ encoder_name
+            model_name = "Unet_" +"pre_trained_"+ encoder_name
         else:
             model = Unet(encoder_name, encoder_weights=None, classes=1, activation=None)
             model_name = "Unet_"+ encoder_name
@@ -123,4 +124,5 @@ if __name__ == "__main__":
         C = pd.Index(["Epoch", "Train", "Valid"], name="columns")
         df = pd.DataFrame(data=losses_values, columns=C)
         df.drop(index=df.index[0], axis=0, inplace=True)
-        df.to_csv(model_name+".csv")
+        csv_path = "files/train_data/" + model_name + ".csv"
+        df.to_csv(csv_path, index=False)
