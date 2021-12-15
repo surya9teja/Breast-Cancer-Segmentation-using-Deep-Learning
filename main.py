@@ -51,11 +51,11 @@ if __name__ == "__main__":
 
     """Loading Data"""
 
-    train_x = sorted(glob("/home/surya/Projects/Capstone/Datasets/new_dataset/train/image/*"))
-    train_y = sorted(glob("/home/surya/Projects/Capstone/Datasets/new_dataset/train/mask/*"))
+    train_x = sorted(glob("Datasets/new_dataset/train/image/*"))
+    train_y = sorted(glob("Datasets/new_dataset/train/mask/*"))
 
-    valid_x = sorted(glob("/home/surya/Projects/Capstone/Datasets/new_dataset/test/image/*"))
-    valid_y = sorted(glob("/home/surya/Projects/Capstone/Datasets/new_dataset/test/mask/*"))
+    valid_x = sorted(glob("Datasets/new_dataset/test/image/*"))
+    valid_y = sorted(glob("Datasets/new_dataset/test/mask/*"))
 
     data_ = f"Dataset size:\nTrain: {len(train_x)} - Valid: {len(valid_x)}\n"
     print(data_)
@@ -65,6 +65,8 @@ if __name__ == "__main__":
     batch_size = 3
     epochs = 20
     learning_rate = 1e-4
+
+    """Boolean to set whether the encder is trained or not"""
     pre_trained = True
 
     
