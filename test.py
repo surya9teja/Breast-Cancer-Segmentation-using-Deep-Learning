@@ -63,8 +63,8 @@ if __name__ == "__main__":
     create_dir("results")
 
     """ Load dataset """
-    test_x = sorted(glob("/home/surya/Projects/Capstone/Datasets/new_dataset/test/image/*"))
-    test_y = sorted(glob("/home/surya/Projects/Capstone/Datasets/new_dataset/test/mask/*"))
+    test_x = sorted(glob("Datasets/new_dataset/test/image/*"))
+    test_y = sorted(glob("Datasets/new_dataset/test/mask/*"))
 
     """ Hyperparameters """
     H = 512
@@ -75,7 +75,9 @@ if __name__ == "__main__":
 
     if os.path.exists("results/metrics.csv"):
         os.remove("results/metrics.csv")
-
+    
+    if os.path.exists("results/metrics_a.csv"):
+        os.remove("results/metrics_a.csv")
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -167,7 +169,11 @@ if __name__ == "__main__":
         with open("results/metrics.csv", "a") as f:
             encoder = model_name.replace("Unet_", "")
             f.write(f"{encoder},{jaccard},Jaccard\n{encoder},{f1},F1\n{encoder},{recall},Recall\n{encoder},{precision}, Precsiion\n{encoder},{acc},Accuracy\n")
+        with open("results/metrics_a.csv", "a") as f:
+            encoder = model_name.replace("Unet_", "")
+            f.write(f"{encoder},{jaccard},{f1},{recall},{precision},{acc}, {fps}\n")
         df = pd.read_csv("results/metrics.csv", header=None)
-        print(f"Encoder: {model_name} - Jaccard: {jaccard:1.4f} - F1: {f1:1.4f} - Recall: {recall:1.4f} - Precision: {precision:1.4f} - Acc: {acc:1.4f} - FPS: {fps:1.4f}")
+        df_1 = pd.read_csv("results/metrics_a.csv", header=None)
+        print(f"Encoder: {model_name} - Jaccard: {jaccard:1.2f} - F1: {f1:1.2f} - Recall: {recall:1.2f} - Precision: {precision:1.2f} - Acc: {acc:1.2f} - FPS: {fps:1.2f}")
     df.to_csv("results/metrics.csv", header=["Encoder", "Value", "score category"], index=False)
-    #df.to_csv("results/metrics.csv", header=["Encoder", "Jaccard", "F1", "Recall", "Precission", "Accuracy", "FPS"], index=False)
+    df_1.to_csv("results/metrics_a.csv", header=["Encoder", "Jaccard", "F1", "Recall", "Precission", "Accuracy", "FPS"], index=False)
