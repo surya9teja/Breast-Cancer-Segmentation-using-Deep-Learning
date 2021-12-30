@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from scipy.interpolate import make_interp_spline, BSpline
 import numpy as np
 
-encoders = ["resnet50", "resnet101", "resnext50_32x4d", "resnext101_32x8d", "densenet121", "densenet201",
+encoders = ["None","resnet50", "resnet101", "resnext50_32x4d", "resnext101_32x8d", "densenet121", "densenet201",
                 "pre_trained_resnet50", "pre_trained_resnet101", "pre_trained_resnext50_32x4d", "pre_trained_resnext101_32x8d", 
                 "pre_trained_densenet121", "pre_trained_densenet201"]
 

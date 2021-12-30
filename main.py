@@ -16,6 +16,7 @@ import pandas as pd
 from classes import Model_Training as MT
 from classes import DataDrive as DD
 from classes import loss_functions as LF
+from classes import Unet as U
 
 
 """ Seeding the randomness. """
@@ -78,14 +79,17 @@ if __name__ == "__main__":
     train_loader = DataLoader(dataset=train_data, batch_size=batch_size, shuffle=True, num_workers=2)
     valid_loader = DataLoader(dataset=valid_data, batch_size=batch_size, shuffle=False, num_workers=2)
 
-    encoders = ["resnet50", "resnet101", "resnext50_32x4d", "resnext101_32x8d", "densenet121", "densenet201"]
+    encoders = ["None", "resnet50", "resnet101", "resnext50_32x4d", "resnext101_32x8d", "densenet121", "densenet201"]
     for encoder_name in encoders:
         device = torch.device('cuda')
-        if pre_trained:
+        if pre_trained and encoder_name != "None":
             model = Unet(encoder_name, encoder_weights="imagenet", classes=1, activation=None)
             model_name = "Unet_" +"pre_trained_"+ encoder_name
-        else:
+        elif pre_trained == False and encoder_name != "None":
             model = Unet(encoder_name, encoder_weights=None, classes=1, activation=None)
+            model_name = "Unet_"+ encoder_name
+        else:
+            model = U.Unet()
             model_name = "Unet_"+ encoder_name
         checkpoint_path = "files/" + model_name +".pth"
         model = model.to(device)

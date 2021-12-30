@@ -9,6 +9,7 @@ import imageio
 import torch
 from  segmentation_models_pytorch import Unet
 from sklearn.metrics import accuracy_score, f1_score, jaccard_score, precision_score, recall_score
+from classes import Unet as U
 
 import pandas as pd
 import seaborn as sns
@@ -81,14 +82,17 @@ if __name__ == "__main__":
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-    encoders = ["resnet50", "resnet101", "resnext50_32x4d", "resnext101_32x8d", "densenet121", "densenet201",
+    encoders = ["None","resnet50", "resnet101", "resnext50_32x4d", "resnext101_32x8d", "densenet121", "densenet201",
                 "pre_trained_resnet50", "pre_trained_resnet101", "pre_trained_resnext50_32x4d", "pre_trained_resnext101_32x8d", 
                 "pre_trained_densenet121", "pre_trained_densenet201"]
 
     for encoder_name in encoders:
         """ Load the checkpoint """
         checkpoint_path = "files/Unet_"+encoder_name+".pth"
-        model = Unet(encoder_name = encoder_name.replace("pre_trained_", ""), classes=1)
+        if encoder_name == "None":
+            model = U.Unet()
+        else:
+            model = Unet(encoder_name = encoder_name.replace("pre_trained_", ""), classes=1)
         model = model.to(device)
         model.load_state_dict(torch.load(checkpoint_path, map_location=device))
         model.eval()
