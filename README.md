@@ -34,3 +34,8 @@ To install required packages
 `pip install -r requirements.txt`
 
 Dataset link available at [google drive](https://drive.google.com/drive/folders/1jpMpMCZmGvZrAyTzix2JDX8GLAa6ZeaO?usp=sharing)
+
+# Results
+![Training Loss per epoch](https://github.com/surya9teja/Breast-Cancer-Segmentation-using-Deep-Learning/blob/master/assets/Train_loss.png)
+![Validation Loss per epoch](https://github.com/surya9teja/Breast-Cancer-Segmentation-using-Deep-Learning/blob/master/assets/Evaluation_loss.png)
+![Evalaution Metrics](https://github.com/surya9teja/Breast-Cancer-Segmentation-using-Deep-Learning/blob/master/assets/metrics.png)
