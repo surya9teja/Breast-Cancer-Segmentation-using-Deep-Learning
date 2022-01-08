@@ -32,3 +32,5 @@ The current research aims to design a deep learning model for nuclei segmentatio
 To install required packages
 
 `pip install -r requirements.txt`
+
+Dataset link available at [google drive](https://drive.google.com/drive/folders/1jpMpMCZmGvZrAyTzix2JDX8GLAa6ZeaO?usp=sharing)
