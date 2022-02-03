@@ -39,7 +39,7 @@ python3 main.py
 python3 test.py 
 python3 graphs.py 
 ```
-Note: Before running the files it requires datasets from the drive and place them under 'Datasets/'
+Note: Before running the files it requires datasets from the drive and place them under `Datasets/`
 To install required packages
 
 `pip install -r requirements.txt`
