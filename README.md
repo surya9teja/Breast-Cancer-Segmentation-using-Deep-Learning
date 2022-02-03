@@ -27,8 +27,19 @@ The current research aims to design a deep learning model for nuclei segmentatio
 - `torch==1.10.0+cu113`
     
 - `tqdm==4.62.3`
-    
 
+To train the model
+```
+git clone https://github.com/surya9teja/Breast-Cancer-Segmentation-using-Deep-Learning.git
+cd Breast-Cancer-Segmentation-using-Deep-Learning
+pip install -r requirements.txt
+python3 data_pre_process.py
+python3 main.py
+# for Graphs and evaluation
+python3 test.py 
+python3 graphs.py 
+```
+Note: Before running the files it requires datasets from the drive and place them under 'Datasets/'
 To install required packages
 
 `pip install -r requirements.txt`
