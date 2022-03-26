@@ -32,7 +32,6 @@ To train the model
 ```
 git clone https://github.com/surya9teja/Breast-Cancer-Segmentation-using-Deep-Learning.git
 cd Breast-Cancer-Segmentation-using-Deep-Learning
-pip install -r requirements.txt
 python3 data_pre_process.py
 python3 main.py
 # for Graphs and evaluation
@@ -40,10 +39,6 @@ python3 test.py
 python3 graphs.py 
 ```
 Note: Before running the files it requires datasets from the drive and place them under `Datasets/` 
-
-To install required packages
-
-`pip install -r requirements.txt`
 
 Dataset link available at [google drive](https://drive.google.com/drive/folders/1jpMpMCZmGvZrAyTzix2JDX8GLAa6ZeaO?usp=sharing)
 
