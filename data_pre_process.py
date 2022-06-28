@@ -78,18 +78,18 @@ if __name__ == "__main__":
     np.random.seed(42)
 
     """Load the data"""
-    data_path = "Datasets/"
+    data_path = "/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/Datasets/"
     (train_x, train_y), (test_x, test_y) = load_data(data_path)
 
     print(f"Train: {len(train_x)} - {len(train_y)}")
     print(f"Test: {len(test_x)} - {len(test_y)}")
 
     """Create Directories to sava augumented data"""
-    create_dir("Datasets/new_dataset/train/image")
-    create_dir("Datasets/new_dataset/train/mask/")
-    create_dir("Datasets/new_dataset/test/image/")
-    create_dir("Datasets/new_dataset/test/mask/")
+    create_dir("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/Datasets//new_dataset/train/image")
+    create_dir("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/Datasets//new_dataset/train/mask/")
+    create_dir("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/Datasets//new_dataset/test/image/")
+    create_dir("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/Datasets//new_dataset/test/mask/")
 
     """Data Augumetation"""
-    augumentation(train_x, train_y, "Datasets/new_dataset/train/", augment=True)
-    augumentation(test_x, test_y, "Datasets/new_dataset/test/", augment=False)
+    augumentation(train_x, train_y, "/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/Datasets//new_dataset/train/", augment=True)
+    augumentation(test_x, test_y, "/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/Datasets//new_dataset/test/", augment=False)

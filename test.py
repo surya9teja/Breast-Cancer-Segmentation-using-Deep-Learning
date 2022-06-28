@@ -61,11 +61,11 @@ if __name__ == "__main__":
     seeding(42)
 
     """ Folders """
-    create_dir("results")
+    create_dir("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/results")
 
     """ Load dataset """
-    test_x = sorted(glob("Datasets/new_dataset/test/image/*"))
-    test_y = sorted(glob("Datasets/new_dataset/test/mask/*"))
+    test_x = sorted(glob("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/Datasets/new_dataset/test/image/*"))
+    test_y = sorted(glob("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/Datasets/new_dataset/test/mask/*"))
 
     """ Hyperparameters """
     H = 512
@@ -74,11 +74,11 @@ if __name__ == "__main__":
 
     """Check metrics.csv exists or not if exists then clear it"""
 
-    if os.path.exists("results/metrics.csv"):
-        os.remove("results/metrics.csv")
+    if os.path.exists("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/results/metrics.csv"):
+        os.remove("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/results/metrics.csv")
     
-    if os.path.exists("results/metrics_a.csv"):
-        os.remove("results/metrics_a.csv")
+    if os.path.exists("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/results/metrics_a.csv"):
+        os.remove("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/results/metrics_a.csv")
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
@@ -88,7 +88,7 @@ if __name__ == "__main__":
 
     for encoder_name in encoders:
         """ Load the checkpoint """
-        checkpoint_path = "files/Unet_"+encoder_name+".pth"
+        checkpoint_path = "/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/files/Unet_"+encoder_name+".pth"
         if encoder_name == "None":
             model = U.Unet()
         else:
@@ -160,8 +160,8 @@ if __name__ == "__main__":
             cat_images = np.concatenate(
                 [image, line, ori_mask, line, pred_y], axis=1
             )
-            create_dir("results/" + model_name)
-            cv2.imwrite(f"results/{model_name}/{name}.png", cat_images)
+            create_dir("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/results/" + model_name)
+            cv2.imwrite(f"/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/results/{model_name}/{name}.png", cat_images)
 
         jaccard = metrics_score[0]/len(test_x)
         f1 = metrics_score[1]/len(test_x)
@@ -170,14 +170,14 @@ if __name__ == "__main__":
         acc = metrics_score[4]/len(test_x)
         fps = 1/np.mean(time_taken)
         """ Saving metrics into a csv file """
-        with open("results/metrics.csv", "a") as f:
+        with open("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/results/metrics.csv", "a") as f:
             encoder = model_name.replace("Unet_", "")
             f.write(f"{encoder},{jaccard},Jaccard\n{encoder},{f1},F1\n{encoder},{recall},Recall\n{encoder},{precision}, Precsiion\n{encoder},{acc},Accuracy\n")
-        with open("results/metrics_a.csv", "a") as f:
+        with open("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/results/metrics_a.csv", "a") as f:
             encoder = model_name.replace("Unet_", "")
             f.write(f"{encoder},{jaccard},{f1},{recall},{precision},{acc}, {fps}\n")
-        df = pd.read_csv("results/metrics.csv", header=None)
-        df_1 = pd.read_csv("results/metrics_a.csv", header=None)
+        df = pd.read_csv("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/results/metrics.csv", header=None)
+        df_1 = pd.read_csv("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/results/metrics_a.csv", header=None)
         print(f"Encoder: {model_name} - Jaccard: {jaccard:1.2f} - F1: {f1:1.2f} - Recall: {recall:1.2f} - Precision: {precision:1.2f} - Acc: {acc:1.2f} - FPS: {fps:1.2f}")
-    df.to_csv("results/metrics.csv", header=["Encoder", "Value", "score category"], index=False)
-    df_1.to_csv("results/metrics_a.csv", header=["Encoder", "Jaccard", "F1", "Recall", "Precission", "Accuracy", "FPS"], index=False)
+    df.to_csv("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/results/metrics.csv", header=["Encoder", "Value", "score category"], index=False)
+    df_1.to_csv("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/results/metrics_a.csv", header=["Encoder", "Jaccard", "F1", "Recall", "Precission", "Accuracy", "FPS"], index=False)

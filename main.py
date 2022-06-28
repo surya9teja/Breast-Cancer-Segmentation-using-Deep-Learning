@@ -47,16 +47,16 @@ if __name__ == "__main__":
     seeding(42)
 
     """Directories"""
-    create_dir("files")
-    create_dir("files/train_data")
+    create_dir("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/files")
+    create_dir("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/train_data")
 
     """Loading Data"""
 
-    train_x = sorted(glob("Datasets/new_dataset/train/image/*"))
-    train_y = sorted(glob("Datasets/new_dataset/train/mask/*"))
+    train_x = sorted(glob("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/Datasets/new_dataset/train/image/*"))
+    train_y = sorted(glob("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/Datasets/new_dataset/train/mask/*"))
 
-    valid_x = sorted(glob("Datasets/new_dataset/test/image/*"))
-    valid_y = sorted(glob("Datasets/new_dataset/test/mask/*"))
+    valid_x = sorted(glob("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/Datasets/new_dataset/test/image/*"))
+    valid_y = sorted(glob("/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/Datasets/new_dataset/test/mask/*"))
 
     data_ = f"Dataset size:\nTrain: {len(train_x)} - Valid: {len(valid_x)}\n"
     print(data_)
@@ -68,7 +68,7 @@ if __name__ == "__main__":
     learning_rate = 1e-4
 
     """Boolean to set whether the encder is trained or not"""
-    pre_trained = True
+    pre_trained = False
 
     
     """ Dataset and loader"""
@@ -80,6 +80,7 @@ if __name__ == "__main__":
     valid_loader = DataLoader(dataset=valid_data, batch_size=batch_size, shuffle=False, num_workers=2)
 
     encoders = ["None", "resnet50", "resnet101", "resnext50_32x4d", "resnext101_32x8d", "densenet121", "densenet201"]
+    #encoders = [ "densenet121", "densenet201"]
     for encoder_name in encoders:
         device = torch.device('cuda')
         if pre_trained and encoder_name != "None":
@@ -91,7 +92,7 @@ if __name__ == "__main__":
         else:
             model = U.Unet()
             model_name = "Unet_"+ encoder_name
-        checkpoint_path = "files/" + model_name +".pth"
+        checkpoint_path = "/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/files/" + model_name +".pth"
         model = model.to(device)
 
         optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
@@ -130,5 +131,5 @@ if __name__ == "__main__":
         C = pd.Index(["Epoch", "Train", "Valid"], name="columns")
         df = pd.DataFrame(data=losses_values, columns=C)
         df.drop(index=df.index[0], axis=0, inplace=True)
-        csv_path = "files/train_data/" + model_name + ".csv"
+        csv_path = "/home/surya/projects/Breast-Cancer-Segmentation-using-Deep-Learning/train_data/" + model_name + ".csv"
         df.to_csv(csv_path, index=False)
